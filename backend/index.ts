@@ -13,6 +13,7 @@ import {
 import "express-async-errors";
 import authController from "./modules/auth/auth.controller";
 import UsersController from "./modules/users/user.controller";
+import EventsController from "./modules/events/events.controller";
 import session from "express-session";
 import passport from "passport";
 import "./modules/auth/strategies/local.strategy";
@@ -69,6 +70,8 @@ router.use("/auth", authController);
 router.use(isLoggedInMiddleware);
 
 router.use("/users", UsersController);
+
+router.use("/events", EventsController);
 
 // make all endpoints start with the prefix api/v1
 app.use("/api/v1", router);

@@ -37,7 +37,18 @@ export const createUser = async (userData: {
 };
 
 
-export const getUser = async (email: string, password: string) => {
+export const getUserByEmail = async (email: string) => {
+  const user = await Users.findOne({ "email.address": email });
+  return user;
+};
+
+
+export const updateUser = async (userId: string, userData: any) => {
+  const user = await Users.findByIdAndUpdate(userId, userData, { new: true });
+  return user;
+};
+
+export const loginUser = async (email: string, password: string) => {
   const user = await Users.findOne({ "email.address": email });
 
   if (!user) {

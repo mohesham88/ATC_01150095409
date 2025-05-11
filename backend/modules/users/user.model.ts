@@ -1,7 +1,6 @@
 import mongoose, { Model, Schema, Document } from "mongoose";
 import bcrypt from "bcrypt";
 
-
 interface Email {
   address: String;
   verified: Boolean;
@@ -24,6 +23,8 @@ export interface User {
   username: string;
   password: string;
   email: Email;
+  resetPasswordToken: string | null;
+  resetPasswordTokenExpiry: Date | null;
 }
 
 interface Profile {
@@ -87,6 +88,8 @@ export interface UserModel extends User, Document {
   google: google;
   deviceToken: [String];
   role: String;
+  resetPasswordToken: string | null;
+  resetPasswordTokenExpiry: Date | null;
   comparePassword(
     plaintext: string,
     callback: (err: Error | null, same: boolean | null) => void
@@ -140,6 +143,18 @@ export const userSchema = new Schema<UserModel>(
       required: false,
       default: [],
     },
+
+    resetPasswordToken: {
+      type: String,
+      required: false,
+      default: null,
+    },
+
+    resetPasswordTokenExpiry: {
+      type: Date,
+      required: false,
+      default: null,
+    },
   },
   {
     timestamps: true,
@@ -174,10 +189,12 @@ userSchema.methods.comparePassword = function (
   return callback(null, bcrypt.compareSync(plaintext, this.password));
 };
 
-// add method that removes the password from the user object
+// add method that removes the password and the tokens from the user object
 userSchema.methods.toJSON = function () {
   const user = this.toObject();
   delete user.password; // Remove password field
+  delete user.resetPasswordToken;
+  delete user.resetPasswordTokenExpiry;
   return user;
 };
 

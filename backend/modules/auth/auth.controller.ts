@@ -1,56 +1,30 @@
 import { Express, Router, Request, Response } from "express";
 
-import {
-  IsEmail,
-  IsNotEmpty,
-  IsString,
-  IsStrongPassword,
-  validationPipe,
-} from "../../utils/validation";
 import { validationMiddleware } from "../../middlewares/validate";
 
 const app: Router = Router();
 
-import { userSchema } from "../users/user.model";
+import { UserModel, userSchema } from "../users/user.model";
 import passport from "passport";
 import { json } from "body-parser";
 
-import { createUser, getUser } from "../users/user.service";
+import {
+  createUser,
+  loginUser,
+  getUserByEmail,
+  updateUser,
+} from "../users/user.service";
+import { BadRequestError, NotFoundError } from "rest-api-errors";
+import {
+  generateResetPasswordToken,
+  resetPassword,
+  sendResetPasswordEmail,
+  verifyResetPasswordToken,
+} from "./auth.service";
+import rateLimit from "express-rate-limit";
 
-class SignupDto {
-  @IsString()
-  @IsNotEmpty()
-  username: string;
+import { SignupDto, SigninDto, ResetPasswordDto } from "./auth.dto";
 
-  @IsEmail()
-  @IsNotEmpty()
-  email: string;
-
-  @IsStrongPassword(
-    {
-      minSymbols: 0,
-      minNumbers: 1,
-      minLowercase: 1,
-      minUppercase: 1,
-    },
-    {
-      message:
-        "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number.",
-    }
-  )
-  @IsNotEmpty()
-  password: string;
-}
-
-class SigninDto {
-  @IsEmail()
-  @IsNotEmpty()
-  email: string;
-
-  @IsString()
-  @IsNotEmpty()
-  password: string;
-}
 
 app.post(
   "/signup",
@@ -101,6 +75,50 @@ app.post(
         });
       }
     )(req, res, next);
+  }
+);
+
+app.post("/forgot-password", async (req: Request, res: Response) => {
+  const { email } = req.body;
+  const user = await getUserByEmail(email);
+  if (!user) {
+    throw new NotFoundError("User with this email not found");
+  }
+
+  const { token, expiryDate } = await generateResetPasswordToken();
+
+  // update the user with the new token and expiry date
+  const updatedUser = await updateUser(user.id, {
+    resetPasswordToken: token,
+    resetPasswordTokenExpiry: expiryDate,
+  });
+
+  const resetPasswordUrl = `${process.env.FRONTEND_URL}/reset-password?token=${token}`;
+  await sendResetPasswordEmail(email, resetPasswordUrl);
+
+  res.status(200).json({
+    message: "Email sent successfully check your inbox to reset your password",
+  });
+});
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 7, // Limit each IP to 5 requests per windowMs
+  message: "Too many requests, please try again later.",
+});
+
+
+app.post(
+  "/reset-password/:token",
+  limiter,
+  validationMiddleware(ResetPasswordDto),
+  async (req: Request, res: Response) => {
+    const { token } = req.params;
+    const { password } = req.body;
+
+    const updatedUser = await resetPassword(token, password);
+
+    res.status(200).json((updatedUser as UserModel).toJSON());
   }
 );
 

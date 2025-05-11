@@ -17,8 +17,6 @@ import { json } from "body-parser";
 
 import { createUser, getUser } from "../users/user.service";
 
-
-
 class SignupDto {
   @IsString()
   @IsNotEmpty()
@@ -69,7 +67,8 @@ app.post(
           bio: req.body.bio,
         },
       });
-      res.status(201).json(user);
+
+      res.status(201).json(user.toJSON());
     } catch (error: any) {
       res.status(400).json({ message: error.message });
     }
@@ -105,10 +104,6 @@ app.post(
   }
 );
 
-
-
-
-
 /* 
 app.get(
   "/google",
@@ -138,6 +133,5 @@ app.get(
     res.redirect(redirectURL);
   }
 ); */
-
 
 export default app;

@@ -1,6 +1,7 @@
 import mongoose, { Model, Schema, Document } from "mongoose";
 import bcrypt from "bcrypt";
 
+
 interface Email {
   address: String;
   verified: Boolean;
@@ -85,6 +86,7 @@ export interface UserModel extends User, Document {
   active: Boolean;
   google: google;
   deviceToken: [String];
+  role: String;
   comparePassword(
     plaintext: string,
     callback: (err: Error | null, same: boolean | null) => void
@@ -115,6 +117,12 @@ export const userSchema = new Schema<UserModel>(
       default: () => ({}),
     },
 
+    role: {
+      type: String,
+      enum: ["user", "admin"],
+      default: "user",
+    },
+
     active: {
       type: Boolean,
       default: true,
@@ -126,7 +134,7 @@ export const userSchema = new Schema<UserModel>(
       default: () => ({}),
     },
 
-    // device token for notifications 
+    // device token for notifications
     deviceToken: {
       type: [String],
       required: false,
@@ -164,6 +172,13 @@ userSchema.methods.comparePassword = function (
   callback: (err: Error | null, same: boolean | null) => void
 ) {
   return callback(null, bcrypt.compareSync(plaintext, this.password));
+};
+
+// add method that removes the password from the user object
+userSchema.methods.toJSON = function () {
+  const user = this.toObject();
+  delete user.password; // Remove password field
+  return user;
 };
 
 export const Users: Model<UserModel> = mongoose.model<UserModel>(

@@ -10,6 +10,8 @@ export function isAdminMiddleware(
   if (req.user && req.user.role === "admin") {
     next();
   } else {
-    throw new UnauthorizedError("User is not an admin");
+    throw new UnauthorizedError(
+      "Access denied: This action requires administrator privileges"
+    );
   }
 }

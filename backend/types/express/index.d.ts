@@ -2,10 +2,10 @@
 
 import { Language } from "../custom.js";
 
-import {UserModel} from '../../users/user.model.js'
+import { UserModel } from "../../modules/users/user.model.js";
 
 // to make the file a module and avoid the TypeScript error
-export {}
+export {};
 
 declare module "express-serve-static-core" {
   namespace Express {

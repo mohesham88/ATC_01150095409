@@ -1,0 +1,35 @@
+export const auth = {
+  login: {
+    title: "تسجيل الدخول",
+    email: "البريد الإلكتروني",
+    password: "كلمة المرور",
+    rememberMe: "تذكرني",
+    forgotPassword: "نسيت كلمة المرور؟",
+    submit: "دخول",
+    noAccount: "ليس لديك حساب؟",
+    signUp: "إنشاء حساب",
+  },
+  register: {
+    title: "إنشاء حساب",
+    email: "البريد الإلكتروني",
+    password: "كلمة المرور",
+    confirmPassword: "تأكيد كلمة المرور",
+    firstName: "الاسم الأول",
+    lastName: "الاسم الأخير",
+    submit: "إنشاء حساب",
+    haveAccount: "لديك حساب بالفعل؟",
+    signIn: "تسجيل الدخول",
+  },
+  forgotPassword: {
+    title: "نسيت كلمة المرور",
+    email: "البريد الإلكتروني",
+    submit: "إعادة تعيين كلمة المرور",
+    backToLogin: "العودة لتسجيل الدخول",
+  },
+  resetPassword: {
+    title: "إعادة تعيين كلمة المرور",
+    newPassword: "كلمة المرور الجديدة",
+    confirmPassword: "تأكيد كلمة المرور",
+    submit: "تحديث كلمة المرور",
+  },
+};

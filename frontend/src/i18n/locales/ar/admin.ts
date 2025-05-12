@@ -1,0 +1,38 @@
+export const admin = {
+  dashboard: {
+    title: "لوحة التحكم",
+    overview: "نظرة عامة",
+    statistics: "الإحصائيات",
+  },
+  events: {
+    title: "إدارة الفعاليات",
+    allEvents: "جميع الفعاليات",
+    pendingEvents: "الفعاليات المعلقة",
+    approvedEvents: "الفعاليات المعتمدة",
+    rejectedEvents: "الفعاليات المرفوضة",
+    status: "الحالة",
+    actions: "الإجراءات",
+    approve: "اعتماد",
+    reject: "رفض",
+    delete: "حذف",
+  },
+  users: {
+    title: "إدارة المستخدمين",
+    allUsers: "جميع المستخدمين",
+    activeUsers: "المستخدمين النشطين",
+    blockedUsers: "المستخدمين المحظورين",
+    role: "الدور",
+    status: "الحالة",
+    actions: "الإجراءات",
+    block: "حظر",
+    unblock: "إلغاء الحظر",
+    delete: "حذف",
+  },
+  settings: {
+    title: "الإعدادات",
+    general: "الإعدادات العامة",
+    notifications: "إعدادات الإشعارات",
+    security: "إعدادات الأمان",
+    save: "حفظ التغييرات",
+  },
+};

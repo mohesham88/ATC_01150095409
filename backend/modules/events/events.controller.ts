@@ -11,42 +11,36 @@ import { isAdminMiddleware } from "../../middlewares/IsAdmin";
 import { CreateEventDto, UpdateEventDto } from "./events.dto";
 import eventsModel from "./events.model";
 import { NotFoundError } from "rest-api-errors";
-import { updateEvent } from "./events.service";
+import { updateEvent, getAllEvents, deleteEvent } from "./events.service";
 
-// create event : admin only
-app.post(
-  "/create/",
-  isAdminMiddleware,
-  validationMiddleware(CreateEventDto),
-  async (req: Request, res: Response) => {
-    const { name, description, category, date, venue, price, image, tags } =
-      req.body;
-    const event = await eventsModel.create({
-      name,
-      description,
-      category,
-      date,
-      venue,
-      price,
-      image,
-      tags,
-    });
-    res.status(201).json(event);
-  }
-);
+// get all events
+app.get("/", async (req: Request, res: Response) => {
+  const {
+    _start = "0",
+    _end = "10",
+    _sort = "date",
+    _order = "ASC",
+    ...filter
+  } = req.query;
 
-// update event : admin only
-app.patch(
-  "/:id",
-  isAdminMiddleware,
-  validationMiddleware(UpdateEventDto),
-  async (req: Request, res: Response) => {
-    const { id } = req.params;
-    const updateData = req.body;
+  const result = await getAllEvents({
+    page: Math.floor(Number(_start) / Number(_end)) + 1,
+    perPage: Number(_end) - Number(_start),
+    sort: String(_sort),
+    order: String(_order) as "ASC" | "DESC",
+    filter,
+  });
 
-    const event = await updateEvent(id, updateData);
-    res.status(200).json(event);
-  }
-);
+  // Transform _id to id for react-admin
+  const transformedData = result.data.map((item) => ({
+    ...item.toObject(),
+    id: item._id,
+  }));
+
+  // Set X-Total-Count header for react-admin
+  res.set("X-Total-Count", result.total.toString());
+
+  res.status(200).json(transformedData);
+});
 
 export default app;

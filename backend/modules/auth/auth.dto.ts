@@ -1,4 +1,3 @@
-
 import {
   IsEmail,
   IsNotEmpty,
@@ -6,8 +5,6 @@ import {
   IsStrongPassword,
   validationPipe,
 } from "../../utils/validation";
-
-
 
 export class SignupDto {
   @IsString()
@@ -43,9 +40,6 @@ export class SigninDto {
   @IsNotEmpty()
   password: string;
 }
-
-
-
 
 export class ResetPasswordDto {
   @IsStrongPassword(

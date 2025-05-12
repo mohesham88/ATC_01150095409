@@ -12,6 +12,8 @@ declare module "express-serve-static-core" {
     export interface Request {
       language?: Language;
       user?: UserModel;
+      admin?: UserModel | undefined;
+      session: Session | undefined;
       login(user: any, callback: (err: Error | null) => void): void;
     }
   }

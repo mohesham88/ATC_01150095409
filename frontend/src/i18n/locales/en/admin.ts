@@ -1,0 +1,38 @@
+export const admin = {
+  dashboard: {
+    title: "Admin Dashboard",
+    overview: "Overview",
+    statistics: "Statistics",
+  },
+  events: {
+    title: "Manage Events",
+    allEvents: "All Events",
+    pendingEvents: "Pending Events",
+    approvedEvents: "Approved Events",
+    rejectedEvents: "Rejected Events",
+    status: "Status",
+    actions: "Actions",
+    approve: "Approve",
+    reject: "Reject",
+    delete: "Delete",
+  },
+  users: {
+    title: "Manage Users",
+    allUsers: "All Users",
+    activeUsers: "Active Users",
+    blockedUsers: "Blocked Users",
+    role: "Role",
+    status: "Status",
+    actions: "Actions",
+    block: "Block",
+    unblock: "Unblock",
+    delete: "Delete",
+  },
+  settings: {
+    title: "Settings",
+    general: "General Settings",
+    notifications: "Notification Settings",
+    security: "Security Settings",
+    save: "Save Changes",
+  },
+};

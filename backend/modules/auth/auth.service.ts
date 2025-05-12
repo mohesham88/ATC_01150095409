@@ -9,6 +9,7 @@ import {
   InternalServerError,
   NotFoundError,
 } from "rest-api-errors";
+import { User } from "../../types/custom";
 
 dotenv.config();
 export const generateResetPasswordToken = async () => {
@@ -74,3 +75,27 @@ export const resetPassword = async (token: string, newPassword: string) => {
 
   return user;
 };
+
+export const loginUser = async (email: string, password: string) => {
+  const user = await Users.findOne({ "email.address": email });
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  return new Promise<UserModel>((resolve, reject) => {
+    user.comparePassword(
+      password,
+      (err: Error | null, isMatch: boolean | null) => {
+        if (err) {
+          reject(err);
+        }
+        if (!isMatch) {
+          reject(new Error("Invalid password"));
+        }
+        resolve(user);
+      }
+    );
+  });
+};
+

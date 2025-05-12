@@ -13,7 +13,7 @@ import {
 import "express-async-errors";
 import authController from "./modules/auth/auth.controller";
 import UsersController from "./modules/users/user.controller";
-import session from "express-session";
+import EventsController from "./modules/events/events.controller";
 import passport from "passport";
 import "./modules/auth/strategies/local.strategy";
 import "./modules/auth/strategies/google.strategy";
@@ -25,6 +25,12 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import MongoStore from "connect-mongo";
 import { createServer } from "http";
+import {
+  userSessionMiddleware,
+  adminSessionMiddleware,
+} from "./config/sessions";
+import adminController from "./modules/admin/admin.controller";
+import { isAdminMiddleware } from "./middlewares/IsAdmin";
 
 export const app = express(); // exporting it for testing purposes
 const httpServer = createServer(app);
@@ -34,45 +40,41 @@ app.use(
     origin: process.env.FRONTEND_URL,
     credentials: true,
     optionsSuccessStatus: 200,
-    methods: "GET,POST,PUT,DELETE,OPTIONS",
+    methods: "GET,POST,PUT,PATCH,DELETE,OPTIONS",
+    exposedHeaders: ["X-Total-Count"],
   })
 );
 app.use(express.json());
 app.use(cookieParser());
 
-const sessionMiddleware = session({
-  resave: false,
-  saveUninitialized: false,
-  secret: String(process.env.SESSION_SECRET),
-  cookie: {
-    secure: process.env.NODE_ENV === "production" ? true : false,
-    httpOnly: false,
-    maxAge: 24 * 7 * 60 * 60 * 1000, // 7 days
-  },
-  store: MongoStore.create({
-    mongoUrl: mongo.MONGO_CONNECTION,
-    ttl: 60 * 60 * 24 * 7, // 7 days,
-    autoRemove: "native",
-  }),
-});
-
-app.use(sessionMiddleware);
-
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(passport.initialize());
-app.use(passport.session());
+// Initialize passport
+// app.use(passport.initialize());
 
 const router = express.Router();
+router.use(passport.initialize());
+router.use(passport.session());
 router.use("/auth", authController);
+
+// Admin routes with admin session
+const adminRouter = express.Router();
+adminRouter.use(passport.initialize());
+adminRouter.use(passport.session());
+adminRouter.use("/", adminController);
+// adminRouter.use(isAdminMiddleware);
+adminRouter.use("/", router);
 
 // all routes after this middleware are protected by IsLoggedInMiddleware
 router.use(isLoggedInMiddleware);
 
 router.use("/users", UsersController);
 
-// make all endpoints start with the prefix api/v1
-app.use("/api/v1", router);
+router.use("/events", EventsController);
 
+// make all endpoints start with the prefix api/v1
+
+app.use("/api/v1/admin", adminSessionMiddleware, adminRouter);
+app.use("/api/v1", userSessionMiddleware, router);
 app.use(errorHandlerMiddleware);
 
 httpServer.listen(SERVER_PORT, async () => {

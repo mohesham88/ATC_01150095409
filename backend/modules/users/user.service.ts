@@ -48,28 +48,7 @@ export const updateUser = async (userId: string, userData: any) => {
   return user;
 };
 
-export const loginUser = async (email: string, password: string) => {
-  const user = await Users.findOne({ "email.address": email });
 
-  if (!user) {
-    throw new Error("User not found");
-  }
-
-  return new Promise((resolve, reject) => {
-    user.comparePassword(
-      password,
-      (err: Error | null, isMatch: boolean | null) => {
-        if (err) {
-          reject(err);
-        }
-        if (!isMatch) {
-          reject(new Error("Invalid password"));
-        }
-        resolve(user);
-      }
-    );
-  });
-};
 
 
 export const getAllUsers = async function() {

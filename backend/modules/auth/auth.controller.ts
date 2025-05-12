@@ -8,12 +8,7 @@ import { UserModel, userSchema } from "../users/user.model";
 import passport from "passport";
 import { json } from "body-parser";
 
-import {
-  createUser,
-  loginUser,
-  getUserByEmail,
-  updateUser,
-} from "../users/user.service";
+import { createUser, getUserByEmail, updateUser } from "../users/user.service";
 import { BadRequestError, NotFoundError } from "rest-api-errors";
 import {
   generateResetPasswordToken,
@@ -24,7 +19,7 @@ import {
 import rateLimit from "express-rate-limit";
 
 import { SignupDto, SigninDto, ResetPasswordDto } from "./auth.dto";
-
+import { adminSessionMiddleware } from "../../config/sessions";
 
 app.post(
   "/signup",
@@ -106,7 +101,6 @@ const limiter = rateLimit({
   max: 7, // Limit each IP to 5 requests per windowMs
   message: "Too many requests, please try again later.",
 });
-
 
 app.post(
   "/reset-password/:token",

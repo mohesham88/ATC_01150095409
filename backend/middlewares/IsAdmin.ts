@@ -1,5 +1,5 @@
 import { Express, Request, Response, NextFunction } from "express";
-import { Unauthorized, UnauthorizedError } from "rest-api-errors";
+import { ForbiddenError, Unauthorized, UnauthorizedError } from "rest-api-errors";
 
 export function isAdminMiddleware(
   req: Request,
@@ -10,6 +10,8 @@ export function isAdminMiddleware(
   if (req.user && req.user.role === "admin") {
     next();
   } else {
-    throw new UnauthorizedError("User is not an admin");
+    throw new ForbiddenError(
+      "Access denied: This action requires administrator privileges"
+    );
   }
 }

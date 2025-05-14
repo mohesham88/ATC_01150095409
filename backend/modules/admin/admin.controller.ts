@@ -30,6 +30,9 @@ app.post(
           if (err) {
             return next(err);
           }
+          if (user.role !== "admin") {
+            return res.status(403).json({ message: "Forbidden" });
+          }
           req.user = user;
           return res.status(200).json({
             id: user._id,

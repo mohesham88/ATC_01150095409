@@ -9,6 +9,7 @@ import {
   InternalServerError,
   NotFoundError,
 } from "rest-api-errors";
+import { Request, Response } from "express";
 import { User } from "../../types/custom";
 
 dotenv.config();
@@ -99,3 +100,14 @@ export const loginUser = async (email: string, password: string) => {
   });
 };
 
+export function logoutUser(req: Request, res: Response) {
+  return new Promise<void>((resolve, reject) => {
+    req.session.destroy((err: Error | null) => {
+      if (err) {
+        return reject(new Error("Failed to destroy session."));
+      }
+      res.clearCookie("user.sid");
+      resolve();
+    });
+  });
+}

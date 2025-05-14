@@ -61,7 +61,6 @@ const adminRouter = express.Router();
 adminRouter.use(passport.initialize());
 adminRouter.use(passport.session());
 adminRouter.use("/", adminController);
-// adminRouter.use(isAdminMiddleware);
 adminRouter.use("/", router);
 
 // all routes after this middleware are protected by IsLoggedInMiddleware

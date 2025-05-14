@@ -12,6 +12,7 @@ import { createUser, getUserByEmail, updateUser } from "../users/user.service";
 import { BadRequestError, NotFoundError } from "rest-api-errors";
 import {
   generateResetPasswordToken,
+  logoutUser,
   resetPassword,
   sendResetPasswordEmail,
   verifyResetPasswordToken,
@@ -116,6 +117,14 @@ app.post(
   }
 );
 
+app.post("/signout", async (req: Request, res: Response) => {
+  try {
+    await logoutUser(req, res);
+    res.status(200).json({ message: "Successfully signed out" });
+  } catch (error) {
+    res.status(500).json({ message: "Error signing out" });
+  }
+});
 /* 
 app.get(
   "/google",

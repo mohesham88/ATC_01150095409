@@ -24,13 +24,22 @@ axiosInstance.interceptors.request.use(
   }
 );
 
-export const adminAxiosInstance = axios.create({
+const adminAxiosInstance = axios.create({
   baseURL: `${SERVER_URL}/api/v1/admin`,
   headers: {
     "Content-Type": "application/json",
   },
   withCredentials: true,
 });
+
+adminAxiosInstance.interceptors.request.use(
+  (config: InternalAxiosRequestConfig) => {
+    return config;
+  },
+  (error: AxiosError) => {
+    return Promise.reject(error);
+  }
+);
 
 // Response interceptor
 axiosInstance.interceptors.response.use(
@@ -42,7 +51,7 @@ axiosInstance.interceptors.response.use(
       switch (error.response.status) {
         case 401:
           // Handle unauthorized - redirect to login
-          window.location.href = "/login";
+          window.location.href = "/auth";
           break;
         case 403:
           // Mainly returned from the server when trying to access admin panel without the correct permissions
@@ -65,7 +74,6 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-
-
+export { adminAxiosInstance };
 
 export default axiosInstance;

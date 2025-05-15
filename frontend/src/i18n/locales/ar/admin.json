@@ -1,0 +1,49 @@
+{
+  "dashboard": {
+    "title": "لوحة التحكم الإدارية",
+    "overview": "نظرة عامة",
+    "statistics": "الإحصائيات"
+  },
+  "events": {
+    "title": "إدارة الفعاليات",
+    "allEvents": "جميع الفعاليات",
+    "pendingEvents": "الفعاليات المعلقة",
+    "approvedEvents": "الفعاليات المعتمدة",
+    "rejectedEvents": "الفعاليات المرفوضة",
+    "status": "الحالة",
+    "actions": "الإجراءات",
+    "approve": "اعتماد",
+    "reject": "رفض",
+    "delete": "حذف",
+    "create": "إنشاء فعالية",
+    "confirmDelete": "تأكيد الحذف",
+    "deleteConfirmation": "هل أنت متأكد أنك تريد حذف هذه الفعالية؟"
+  },
+  "users": {
+    "title": "إدارة المستخدمين",
+    "allUsers": "جميع المستخدمين",
+    "activeUsers": "المستخدمين النشطين",
+    "blockedUsers": "المستخدمين المحظورين",
+    "role": "الدور",
+    "status": "الحالة",
+    "actions": "الإجراءات",
+    "block": "حظر",
+    "unblock": "إلغاء الحظر",
+    "delete": "حذف"
+  },
+  "settings": {
+    "title": "الإعدادات",
+    "general": "الإعدادات العامة",
+    "notifications": "إعدادات الإشعارات",
+    "security": "إعدادات الأمان",
+    "save": "حفظ التغييرات"
+  },
+  "login": {
+    "title": "تسجيل الدخول إلى لوحة التحكم الخاصة بالأدمن",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "login": "تسجيل الدخول",
+    "forgotPassword": "هل نسيت كلمة المرور؟",
+    "register": "إنشاء حساب"
+  }
+}

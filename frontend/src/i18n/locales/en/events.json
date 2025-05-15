@@ -1,0 +1,9 @@
+{
+  "bookNow": "Book Now",
+  "upcomingEvents": "Upcoming Events",
+  "soldOut": "Sold Out",
+  "location": "Location",
+  "eventNotFound": "Event not found.",
+  "alreadyBooked": "Already Booked",
+  "cancelBooking": "Cancel Booking"
+}

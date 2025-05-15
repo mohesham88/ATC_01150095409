@@ -3,14 +3,20 @@ import { isAdminMiddleware } from "../../middlewares/IsAdmin";
 import { Session } from "express-session";
 
 import { validationMiddleware } from "../../middlewares/validate";
-import { deleteEvent, updateEvent } from "../events/events.service";
+import {
+  createEvent,
+  deleteEvent,
+  updateEvent,
+} from "../events/events.service";
 import { CreateEventDto, UpdateEventDto } from "../events/events.dto";
 import eventsModel from "../events/events.model";
 import { loginAdmin } from "./admin.service";
 import { SigninDto } from "../auth/auth.dto";
 import passport from "passport";
-
+import multer from "multer";
 const app: Router = Router();
+
+const upload = multer({ storage: multer.memoryStorage() });
 
 // admin signin
 app.post(
@@ -62,18 +68,23 @@ app.post("/auth/signout", isAdminMiddleware, (req: Request, res: Response) => {
 app.post(
   "/events/create",
   isAdminMiddleware,
+  upload.array("images", 5),
   validationMiddleware(CreateEventDto),
   async (req: Request, res: Response) => {
-    const { name, description, category, date, venue, price, image, tags } =
-      req.body;
-    const event = await eventsModel.create({
+    const { name, description, category, date, venue, price, tags } = req.body;
+    console.log(req.body);
+
+    const images = req.files as Express.Multer.File[];
+    console.log(images);
+
+    const event = await createEvent({
       name,
       description,
       category,
       date,
       venue,
       price,
-      image,
+      images,
       tags,
     });
     res.status(201).json(event);
@@ -82,13 +93,20 @@ app.post(
 
 app.patch(
   "/events/:id",
+  upload.array("images", 5),
   isAdminMiddleware,
-  validationMiddleware(UpdateEventDto),
+  // validationMiddleware(UpdateEventDto),
   async (req: Request, res: Response) => {
+    console.log(req.body);
     const { id } = req.params;
-    const updateData = req.body;
+    console.log("req.body : ");
+    console.log(req.body);
+    const images = req.files as Express.Multer.File[];
+    console.log(images);
 
-    const event = await updateEvent(id, updateData);
+    const updateData = req.body;
+    // console.log(updateData.images.rawfile);
+    const event = await updateEvent(id, { ...updateData, images });
     res.status(200).json(event);
   }
 );

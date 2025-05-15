@@ -31,6 +31,7 @@ import {
 } from "./config/sessions";
 import adminController from "./modules/admin/admin.controller";
 import { isAdminMiddleware } from "./middlewares/IsAdmin";
+import BookingController from "./modules/bookings/booking.controller";
 
 export const app = express(); // exporting it for testing purposes
 const httpServer = createServer(app);
@@ -69,6 +70,8 @@ router.use(isLoggedInMiddleware);
 router.use("/users", UsersController);
 
 router.use("/events", EventsController);
+
+router.use('/bookings' , BookingController)
 
 // make all endpoints start with the prefix api/v1
 

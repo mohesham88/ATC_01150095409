@@ -10,7 +10,7 @@ const app = Router();
 // Create a booking
 app.post("/", async (req: Request, res: Response) => {
   const { eventId } = req.body;
-
+  console.log("Event ID:", eventId);
   const user = req.user as UserModel;
   const booking = await createBooking(user._id as any, eventId);
   res.status(201).json(booking);
@@ -32,6 +32,12 @@ app.delete("/:eventId", async (req: Request, res: Response) => {
   const { eventId } = req.params;
   const booking = await cancelBooking(req.user?._id as any, eventId);
   res.status(200).json({ message: "Booking canceled successfully" });
+});
+
+app.get("/my-bookings", async (req: Request, res: Response) => {
+  const user = req.user as UserModel;
+  const bookings = await Booking.find({ user: user._id, status: "booked" });
+  res.status(200).json(bookings);
 });
 
 export default app;

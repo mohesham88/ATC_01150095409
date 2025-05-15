@@ -15,6 +15,7 @@ declare module "express-serve-static-core" {
       admin?: UserModel | undefined;
       session: Session | undefined;
       login(user: any, callback: (err: Error | null) => void): void;
+      files: Express.Multer.File[] | undefined;
     }
   }
 }

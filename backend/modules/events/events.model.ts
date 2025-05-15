@@ -24,13 +24,17 @@ export enum EventTags {
   Other = "Other",
 }
 
-
-// Store the images in mongo for now will change to media storage later if the time allows 
+// Store the images in mongo for now will change to media storage later if the time allows
 const imageSchema = new Schema({
-  data: { type: Buffer, required: true },
-  contentType: { type: String, required: true }, // e.g., "image/jpeg"
-});
+  buffer: { type: Buffer, required: true },
+  originalname: { type: String },
+  "Content-Type": { type: String },
+  fieldname: { type: String },
+  encoding: { type: String },
+  mimetype: { type: String },
 
+  // contentType: { type: String, required: true }, // e.g., "image/jpeg"
+});
 
 // TODO: Add google maps location to the event
 const eventSchema = new Schema(
@@ -41,7 +45,7 @@ const eventSchema = new Schema(
     date: { type: Date, required: true },
     venue: { type: String },
     price: { type: Number, required: true },
-    image: { 
+    images: {
       type: [imageSchema],
       required: false,
       validate: [arrayLimit, "You can only upload up to 5 images per event"],
@@ -56,12 +60,8 @@ const eventSchema = new Schema(
   { timestamps: true }
 );
 
-
 function arrayLimit(val: unknown[]) {
   return val.length <= 5;
 }
-
-
-
 
 export default model("Event", eventSchema);

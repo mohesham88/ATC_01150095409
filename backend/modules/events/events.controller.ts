@@ -4,14 +4,7 @@ import { validationMiddleware } from "../../middlewares/validate";
 
 const app: Router = Router();
 
-import { UserModel, userSchema } from "../users/user.model";
-import passport from "passport";
-import { json } from "body-parser";
-import { isAdminMiddleware } from "../../middlewares/IsAdmin";
-import { CreateEventDto, UpdateEventDto } from "./events.dto";
-import eventsModel from "./events.model";
-import { NotFoundError } from "rest-api-errors";
-import { updateEvent, getAllEvents, deleteEvent } from "./events.service";
+import { getAllEvents } from "./events.service";
 
 // get all events
 app.get("/", async (req: Request, res: Response) => {

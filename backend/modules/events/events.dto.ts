@@ -8,6 +8,7 @@ import {
   IsOptional,
   IsPositive,
   IsString,
+  Min,
 } from "../../utils/validation";
 
 import { EventTags } from "./events.model";
@@ -33,16 +34,12 @@ export class CreateEventDto {
   @IsNotEmpty()
   venue: string;
 
-  @IsNumber()
-  @IsPositive()
+  // @IsNumber()
+  // @Min(0)
   @IsNotEmpty()
   price: number;
 
-  @IsArray()
-  @IsArray()
-  images: [];
-
-  @IsArray()
+  // @IsArray()
   @IsOptional()
   tags: [EventTags];
 }
@@ -60,7 +57,7 @@ export class UpdateEventDto {
   @IsOptional()
   category?: string;
 
-  @IsISO8601()
+  // @IsISO8601()
   @IsOptional()
   date?: Date;
 
@@ -68,8 +65,8 @@ export class UpdateEventDto {
   @IsOptional()
   venue?: string;
 
-  @IsNumber()
-  @IsPositive()
+  // @IsNumber()
+  // @Min(0)
   @IsOptional()
   price?: number;
 

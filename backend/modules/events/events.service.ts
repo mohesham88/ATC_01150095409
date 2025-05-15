@@ -83,3 +83,34 @@ export const deleteEvent = async (id: string) => {
 
   return event;
 };
+
+export const createEvent = async ({
+  name,
+  description,
+  category,
+  date,
+  venue,
+  price,
+  tags,
+  images,
+}: any) => {
+  // images: array of Multer files
+  let imageDocs: any[] = [];
+  if (images && Array.isArray(images)) {
+    imageDocs = images.map((file: any) => ({
+      data: file.buffer,
+      contentType: file.mimetype,
+    }));
+  }
+  const event = await eventsModel.create({
+    name,
+    description,
+    category,
+    date,
+    venue,
+    price,
+    tags,
+    image: imageDocs,
+  });
+  return event;
+};

@@ -20,3 +20,12 @@ export enum EventTags {
   CareerGrowth = "Career Growth",
   Other = "Other",
 }
+
+export const categoryChoices = [
+  { id: "workshop", name: "Workshop" },
+  { id: "conference", name: "Conference" },
+  { id: "meetup", name: "Meetup" },
+  { id: "hackathon", name: "Hackathon" },
+  { id: "seminar", name: "Seminar" },
+  { id: "other", name: "Other" },
+];

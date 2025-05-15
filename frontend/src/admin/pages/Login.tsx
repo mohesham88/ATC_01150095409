@@ -15,7 +15,7 @@ export const Login = () => {
   const [password, setPassword] = useState("");
   const login = useLogin();
   const notify = useNotify();
-  const { t } = useTranslation("auth");
+  const { t } = useTranslation("admin");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,17 +35,18 @@ export const Login = () => {
         alignItems: "center",
         minHeight: "100vh",
         bgcolor: "background.default",
+        minWidth: "100vw",
       }}
     >
       <Card sx={{ maxWidth: 400, width: "100%", mx: 2 }}>
         <CardContent>
           <Typography variant="h5" component="h1" gutterBottom align="center">
-            {t("login.title")}
+            {t("admin:login.title")}
           </Typography>
           <form onSubmit={handleSubmit}>
             <TextField
               fullWidth
-              label={t("login.email")}
+              label={t("admin:login.email")}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               margin="normal"
@@ -53,7 +54,7 @@ export const Login = () => {
             />
             <TextField
               fullWidth
-              label={t("login.password")}
+              label={t("admin:login.password")}
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -61,7 +62,7 @@ export const Login = () => {
               required
             />
             <Button fullWidth type="submit" variant="contained" sx={{ mt: 2 }}>
-              {t("login.submit")}
+              {t("admin:login.submit")}
             </Button>
           </form>
         </CardContent>

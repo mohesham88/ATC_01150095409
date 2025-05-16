@@ -51,12 +51,12 @@ app
     }
   );
 
-app.get("/all", async (req: Request, res: Response) => {
-  let users = await getAllUsers();
-  const otherUsers = users.filter(
-    (user) => user.id.toString() !== req.user?._id
-  );
-  return res.status(200).json(otherUsers);
-});
+// app.get("/all", async (req: Request, res: Response) => {
+//   let users = await getAllUsers();
+//   const otherUsers = users.filter(
+//     (user) => user.id.toString() !== req.user?._id
+//   );
+//   return res.status(200).json(otherUsers);
+// });
 
 export default app;

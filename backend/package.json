@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
-    "start": "ts-node index.ts",
+    "build": "tsc",
+    "start": "npm run build && node dist/index.js",
     "start:dev": "tsx watch index.ts"
   },
   "keywords": [],
@@ -23,7 +24,7 @@
     "babel-jest": "^29.7.0",
     "ts-node": "^10.9.2",
     "tsx": "^4.15.8",
-    "typescript": "^5.5.2"
+    "typescript": "^5.8.3"
   },
   "dependencies": {
     "@types/bcrypt": "^5.0.2",

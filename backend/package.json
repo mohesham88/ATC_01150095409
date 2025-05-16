@@ -4,8 +4,7 @@
   "main": "index.ts",
   "scripts": {
     "start": "ts-node index.ts",
-    "start:dev": "tsx watch index.ts",
-    "test": "jest --watchAll"
+    "start:dev": "tsx watch index.ts"
   },
   "keywords": [],
   "author": "",

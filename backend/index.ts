@@ -38,12 +38,10 @@ const httpServer = createServer(app);
 
 app.use(
   cors({
-    origin: (origin: string, callback: any) => {
-      if (origin) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
+    origin: (origin: string | undefined, callback: any) => {
+      console.log("origin", origin);
+      // allow all requests event with no origin (curl , postman)
+      callback(null, true);
     },
     credentials: true,
     optionsSuccessStatus: 200,

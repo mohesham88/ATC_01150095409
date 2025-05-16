@@ -38,7 +38,7 @@ const httpServer = createServer(app);
 
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL,
+    origin: "*",
     credentials: true,
     optionsSuccessStatus: 200,
     methods: "GET,POST,PUT,PATCH,DELETE,OPTIONS",
@@ -71,7 +71,7 @@ router.use("/users", UsersController);
 
 router.use("/events", EventsController);
 
-router.use('/bookings' , BookingController)
+router.use("/bookings", BookingController);
 
 // make all endpoints start with the prefix api/v1
 

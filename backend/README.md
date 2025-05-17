@@ -22,6 +22,7 @@ The Event management System backend. 🚀
 - **TypeScript** (For type safety) 🏷️
 
 ![TypeScript Logo](https://badgen.net/badge/-/TypeScript/blue?icon=typescript&label)
+![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?logo=mongodb&logoColor=white)
 ![Express Logo](https://upload.wikimedia.org/wikipedia/commons/6/64/Expressjs.png)
 
 ---
@@ -57,6 +58,15 @@ MONGO_USER=
 MONGO_PASSWORD=
 MONGO_DATABASE=
 MONGO_APP_NAME=
+
+
+RESET_PASSWORD_TOKEN_EXPIRY= 3600000 1 hour for example
+
+# MAIL Service (used for sending the reset password mails)
+MAIL_USER=
+MAIL_PASSWORD=  # APP PASSWORD generated from google account if using gmail
+MAIL_SERVICE= "gmail" or any other used main service
+
 ```
 
 ### 4. Start the Development Server

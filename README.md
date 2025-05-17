@@ -1,36 +1,65 @@
-# Areeb Technology Competition 
+## MEvent 🎉: Evnet Management Web application
 
-## Event Management Web application
+![Frontend](https://img.shields.io/badge/frontend-live-brightgreen)
+![Backend](https://img.shields.io/badge/backend-API-blue)
+![Status](https://img.shields.io/badge/status-active-success)
 
-##  📍 Requirements
+MEvent is a full-stack simple web application designed to make event planning and participation simple, fast, and efficient. Whether you're an event organizer or an enthusiastic attendee, MEvent offers a seamless platform to manage it all.
 
-- [ ] Frontend
-  - [ ] Auth Page
-  - [ ] Landing Page
-  - [ ] Admin Panel (using React-admin)
-    - [ ] Admin Login Page
-    - [ ] Events & booking
-      - [ ] view , edit , create events
-      - [ ] export data to CSV
-  - [ ] Dark/light mode
-  - [ ] Deployment
-- [ ] Backend
-  - [x] Authentication
-    - [x] reset password functionality
-      - [x] send mail to the user with the reset-token-url that expires in 1 hour.
-      - [x] apply rate limiting to avoid abuse (limit each IP to 5 request every 15 minutes for the reset password route)
-    - [ ] Authorization & roles
-      - [x] restrict Creating , Updating & Deleting Events to admins only
-      - [ ] admin must have a sepearte session independent from the user session.
-  - [ ] Event Management
-    - [x] Tags and categories for events.
-    - [ ] Event images upload functionality.
-    - [ ] Google Maps integration Feature
-  - [ ] Booking API
-  - [ ] Deployment
+| 🏆 This project was developed as part of the Areeb Web Development Competition.
 
-- [ ] Unit testing
-- [ ] Multi-language support (En/Ar for now)
+### 🔗 Live Demo
 
+🌐 Frontend: [vercel](https://atc-01150095409.vercel.app/)
 
+🛠️ Backend API: [azurewebsites](https://arabee-events-task-backend-g0gmf2deh5cfbsgd.francecentral-01.azurewebsites.net/api/v1/)
+
+## 📍 Features
+
+- [x] Multi-language support (En/Ar for now) using i18n library for dynamic translation
+- [x] Admin Panel for managing Events <del>(using React-admin)</del> switched to a simple custom one.
+- [x] Authentication & Authorization
+
+  - [x] reset password functionality
+    - [x] send mail to the user with the reset-token-url that expires in 1 hour.
+    - [x] apply rate limiting to avoid abuse (limit each IP to 5 request every 15 minutesfor the reset password route
+
+- [x] Frontend
+  - [x] Dark/light mode
+  - [x] Deployed to Vercel
+- [x] Backend
+
+  - [x] ensuring Authorization and user roles
+  - [x] Admin and user have two seperate sessions (usefull for security reasons e.g (making the admin have a shorter token))
+  - [x] Event Management
+
+    - [x] Tags and categories for events which could be used for filtering.
+    - [x] Event images upload functionality (user can upload up to 5 images per Event).
+          🛠 Tech Stack
+
+    | Layer    | Technologies                                             |
+    | -------- | -------------------------------------------------------- |
+    | Frontend | Typescript, React/Vue                                    |
+    | Backend  | Node.js, Express, TS, Passport                           |
+    | Database | MongoDB                                                  |
+    | Hosting  | Vercel (Frontend), Microsoft Azure App Service (Backend) |
+
+⚙️ Project Structure
+
+```bash
+mevent/
+│
+├── frontend/      # React + TS
+│   └── README.md – Setup instructions for the frontend
+│
+├── backend/      # Backend (Express + TS)
+│   └── README.md – Setup instructions for the backend
+│
+└── README.md    # Main project overview
+```
+
+➡️ For detailed setup and environment configuration, please refer to the individual ``README.md`` files located inside the ```/frontend``` and ```/backend``` folders.
+
+### 🙏 Acknowledgements
+Areeb Web Dev Competition — for the opportunity and platform
 

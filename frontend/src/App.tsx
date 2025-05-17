@@ -7,6 +7,7 @@ import HomePage from "./pages/HomePage";
 import EventDetailsPage from "./pages/EventDetailsPage";
 import AdminJSApp from "./admin/AdminJSApp";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
+import AdminProtectedRoute from "./components/AdminProtectedRoute";
 
 function App() {
   return (
@@ -17,7 +18,14 @@ function App() {
           <Route path="/auth" element={<AuthPage />} />
           <Route path="/event/:id" element={<EventDetailsPage />} />
           <Route path="/" element={<HomePage />} />
-          <Route path="/admin" element={<AdminJSApp />} />
+          <Route
+            path="/admin/*"
+            element={
+              <AdminProtectedRoute>
+                <AdminJSApp />
+              </AdminProtectedRoute>
+            }
+          />
           <Route path="/reset-password" element={<ResetPasswordPage />} />
           {/* Add other routes here */}
         </Routes>

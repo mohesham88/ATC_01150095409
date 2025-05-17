@@ -5,7 +5,7 @@ import axiosInstance from "../lib/axios";
 export interface User {
   _id: string;
   id: string;
-  username : string;
+  username: string;
   profile?: {
     avatar?: string;
   };

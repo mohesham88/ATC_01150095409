@@ -18,6 +18,7 @@ import EventImagePreview from "./EventImagePreview";
 interface EventTableProps {
   events: any[];
   onEdit: (id: string) => void;
+  onDelete: (id: string) => void;
 }
 
 const EventTable: React.FC<EventTableProps> = ({ events, onEdit }) => (

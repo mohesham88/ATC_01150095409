@@ -11,7 +11,8 @@ import {
   useTheme,
   Skeleton,
 } from "@mui/material";
-import { Grid } from "@mui/material";
+// import { Grid } from "@mui/material";
+import Grid from "@mui/material/GridLegacy";
 import { useTranslation } from "react-i18next";
 import { useEventStore } from "../store/eventStore";
 import { useUIStore } from "../store/uiStore";

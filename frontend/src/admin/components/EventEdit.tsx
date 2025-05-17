@@ -19,14 +19,12 @@ import {
 import { EventTags } from "../types/event";
 import { ImagesearchRoller } from "@mui/icons-material";
 import { useEffect, useState } from "react";
-import { ExistingImagesInput, ImageGalleryEditor } from "./ImageGalleryEditor";
 import { categoryChoices } from "../types/event";
 
 export const tagChoices = Object.entries(EventTags).map(([, value]) => ({
   id: value,
   name: value,
 }));
-
 
 const ImageFromBase64 = () => {
   const record = useRecordContext();
@@ -46,7 +44,6 @@ const ImageFromBase64 = () => {
 };
 
 export const EventEdit = ({ record }: { record: any }) => {
-
   const [changed, setChanged] = useState(false);
 
   useEffect(() => {

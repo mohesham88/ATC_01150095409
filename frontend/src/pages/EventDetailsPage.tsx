@@ -12,7 +12,7 @@ import {
   useTheme,
   useMediaQuery,
 } from "@mui/material";
-import { Grid } from "@mui/material";
+import Grid from "@mui/material/GridLegacy";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -126,7 +126,7 @@ const EventDetailsPage: React.FC = () => {
       <Navbar />
       <Container maxWidth="lg" sx={{ pt: 12, pb: 4 }}>
         <Grid container spacing={4} direction={isSmall ? "column" : "row"}>
-          <Grid item xs={12} md={4}>
+          <Grid component="div" item xs={12} md={4}>
             <Paper elevation={3} sx={{ borderRadius: 3, overflow: "hidden" }}>
               {/* Image Slider */}
               <Swiper
@@ -191,7 +191,7 @@ const EventDetailsPage: React.FC = () => {
               </Box>
             </Paper>
           </Grid>
-          <Grid item xs={12} md={8}>
+          <Grid component="div" item xs={12} md={8}>
             <Paper elevation={2} sx={{ borderRadius: 3, p: 3, minHeight: 340 }}>
               <Typography variant="h6" fontWeight={600} gutterBottom>
                 {t("events:description")}

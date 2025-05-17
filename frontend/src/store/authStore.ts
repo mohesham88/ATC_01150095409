@@ -4,9 +4,12 @@ import axiosInstance from "../lib/axios";
 
 export interface User {
   _id: string;
+  id: string;
+  username : string;
+  profile?: {
+    avatar?: string;
+  };
   email: string;
-  name: string;
-  role: "admin" | "user";
 }
 
 interface AuthState {
@@ -107,6 +110,7 @@ export const useAuthStore = create<AuthState>()(
               isLoading: false,
               error: null,
             });
+            localStorage.removeItem("auth-storage");
           } catch (error) {
             set({
               error: error instanceof Error ? error.message : "Logout failed",
@@ -114,6 +118,7 @@ export const useAuthStore = create<AuthState>()(
               isAuthenticated: false,
               user: null,
             });
+            localStorage.removeItem("auth-storage");
             throw error;
           }
         },

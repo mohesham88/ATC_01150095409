@@ -7,7 +7,7 @@ import {
   mongo,
   MONGO_DATABASE,
   reconnectTimeout,
-  SERVER_PORT,
+  PORT,
   setupConnectHandlers,
 } from "./config/db";
 import "express-async-errors";
@@ -68,23 +68,22 @@ adminRouter.use(passport.session());
 adminRouter.use("/", adminController);
 adminRouter.use("/", router);
 
+router.use("/events", EventsController);
 // all routes after this middleware are protected by IsLoggedInMiddleware
 router.use(isLoggedInMiddleware);
 
 router.use("/users", UsersController);
 
-router.use("/events", EventsController);
-
 router.use("/bookings", BookingController);
 
 // make all endpoints start with the prefix api/v1
 
-app.use("/api/v1/admin", adminSessionMiddleware, adminRouter);
 app.use("/api/v1", userSessionMiddleware, router);
+app.use("/api/v1/admin", adminSessionMiddleware, adminRouter);
 app.use(errorHandlerMiddleware);
 
-httpServer.listen(SERVER_PORT, async () => {
-  console.log(`Server is running on http://localhost:${SERVER_PORT} `);
+httpServer.listen(PORT, async () => {
+  console.log(`Server is running on http://localhost:${PORT} `);
 
   try {
     setupConnectHandlers();

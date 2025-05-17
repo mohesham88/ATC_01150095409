@@ -111,7 +111,7 @@ const Navbar = () => {
             <Language />
           </IconButton>
 
-          {isAuthenticated ? (
+          {isAuthenticated && user ? (
             <>
               <IconButton onClick={handleUserMenuOpen} sx={{ ml: 1 }}>
                 <Avatar

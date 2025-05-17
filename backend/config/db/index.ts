@@ -6,13 +6,11 @@ dotenv.config();
 export const DEVELOPMENT = process.env.NODE_ENV === "development";
 
 export const SERVER_HOSTNAME = process.env.SERVER_HOSTNAME || "localhost";
-export const SERVER_PORT: number = process.env.SERVER_PORT
-  ? Number(process.env.SERVER_PORT)
-  : 12345;
+export const PORT: number = process.env.PORT ? Number(process.env.PORT) : 12345;
 
 export const server = {
   SERVER_HOSTNAME,
-  SERVER_PORT,
+  PORT,
 };
 
 export const MONGO_USER = process.env.MONGO_USER || "";

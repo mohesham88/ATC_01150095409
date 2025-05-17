@@ -8,6 +8,7 @@ import {
   IsOptional,
   IsPositive,
   IsString,
+  isURL,
   Min,
 } from "../../utils/validation";
 

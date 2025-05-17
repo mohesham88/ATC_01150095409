@@ -25,16 +25,16 @@ export enum EventTags {
 }
 
 // Store the images in mongo for now will change to media storage later if the time allows
-const imageSchema = new Schema({
-  buffer: { type: Buffer, required: true },
-  originalname: { type: String },
-  "Content-Type": { type: String },
-  fieldname: { type: String },
-  encoding: { type: String },
-  mimetype: { type: String },
+// const imageSchema = new Schema({
+//   buffer: { type: Buffer, required: true },
+//   originalname: { type: String },
+//   "Content-Type": { type: String },
+//   fieldname: { type: String },
+//   encoding: { type: String },
+//   mimetype: { type: String },
 
-  // contentType: { type: String, required: true }, // e.g., "image/jpeg"
-});
+//   // contentType: { type: String, required: true }, // e.g., "image/jpeg"
+// });
 
 // TODO: Add google maps location to the event
 const eventSchema = new Schema(
@@ -46,7 +46,7 @@ const eventSchema = new Schema(
     venue: { type: String },
     price: { type: Number, required: true },
     images: {
-      type: [imageSchema],
+      type: [String],
       required: false,
       validate: [arrayLimit, "You can only upload up to 5 images per event"],
     },

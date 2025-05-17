@@ -14,6 +14,7 @@ import { loginAdmin } from "./admin.service";
 import { SigninDto } from "../auth/auth.dto";
 import passport from "passport";
 import multer from "multer";
+import { uploadToCloudinary } from "../../config/mutler";
 const app: Router = Router();
 
 const upload = multer({ storage: multer.memoryStorage() });
@@ -68,7 +69,7 @@ app.post("/auth/signout", isAdminMiddleware, (req: Request, res: Response) => {
 app.post(
   "/events/create",
   isAdminMiddleware,
-  upload.array("images", 5),
+  uploadToCloudinary.array("images", 5),
   validationMiddleware(CreateEventDto),
   async (req: Request, res: Response) => {
     const { name, description, category, date, venue, price, tags } = req.body;
@@ -76,15 +77,18 @@ app.post(
 
     const images = req.files as Express.Multer.File[];
     console.log(images);
+    const images_paths = req.files.map(
+      (file: Express.Multer.File) => file.path
+    );
 
-    const event = await createEvent({
+    const event = await eventsModel.create({
       name,
       description,
       category,
       date,
       venue,
       price,
-      images,
+      images: images_paths,
       tags,
     });
     res.status(201).json(event);
@@ -93,8 +97,8 @@ app.post(
 
 app.patch(
   "/events/:id",
-  upload.array("images", 5),
   isAdminMiddleware,
+  uploadToCloudinary.array("images", 5),
   // validationMiddleware(UpdateEventDto),
   async (req: Request, res: Response) => {
     console.log(req.body);

@@ -42,8 +42,9 @@ app.use(
       if (!origin) return callback(null, true); // Allow Postman/Curl
       const allowedOrigins = [
         "http://localhost:3000",
-        "http://localhost:4173", // Vite
+        "http://localhost:4173", // local Vite
         "https://atc-01150095409.vercel.app", // main production site
+        "http://localhost:5173", // local Vite
       ];
 
       // Allow Vercel domains for nows to get the preview site working

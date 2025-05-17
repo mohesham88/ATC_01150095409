@@ -22,7 +22,7 @@ MEvent is a full-stack simple web application designed to make event planning an
 
   - [x] reset password functionality
     - [x] send mail to the user with the reset-token-url that expires in 1 hour.
-    - [x] apply rate limiting to avoid abuse (limit each IP to 5 request every 15 minutesfor the reset password route
+    - [x] apply rate limiting to avoid abuse (limit each IP to 5 request every 15 minutesfor the reset password route)
 
 - [x] Frontend
   - [x] Dark/light mode
@@ -35,14 +35,15 @@ MEvent is a full-stack simple web application designed to make event planning an
 
     - [x] Tags and categories for events which could be used for filtering.
     - [x] Event images upload functionality (user can upload up to 5 images per Event).
-          🛠 Tech Stack
 
-    | Layer    | Technologies                                             |
-    | -------- | -------------------------------------------------------- |
-    | Frontend | Typescript, React/Vue                                    |
-    | Backend  | Node.js, Express, TS, Passport                           |
-    | Database | MongoDB                                                  |
-    | Hosting  | Vercel (Frontend), Microsoft Azure App Service (Backend) |
+## 🛠 Tech Stack
+
+| Layer    | Technologies                                             |
+| -------- | -------------------------------------------------------- |
+| Frontend | Typescript, React/Vue                                    |
+| Backend  | Node.js, Express, TS, Passport                           |
+| Database | MongoDB                                                  |
+| Hosting  | Vercel (Frontend), Microsoft Azure App Service (Backend) |
 
 ⚙️ Project Structure
 
@@ -58,8 +59,8 @@ mevent/
 └── README.md    # Main project overview
 ```
 
-➡️ For detailed setup and environment configuration, please refer to the individual ``README.md`` files located inside the ```/frontend``` and ```/backend``` folders.
+➡️ For detailed setup and environment configuration, please refer to the individual `README.md` files located inside the `/frontend` and `/backend` folders.
 
 ### 🙏 Acknowledgements
-Areeb Web Dev Competition — for the opportunity and platform
 
+Areeb Web Dev Competition — for the opportunity and platform

@@ -71,7 +71,7 @@ npm run lint
 
 - Lints the project files
 
-🌐 Production Build
+## 🌐 Production Build
 
 To build the app for production:
 

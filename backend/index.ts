@@ -34,14 +34,28 @@ import { isAdminMiddleware } from "./middlewares/IsAdmin";
 import BookingController from "./modules/bookings/booking.controller";
 
 export const app = express(); // exporting it for testing purposes
-const httpServer = createServer(app);
 
 app.use(
   cors({
     origin: (origin: string | undefined, callback: any) => {
-      console.log("origin", origin);
-      // allow all requests event with no origin (curl , postman)
-      callback(null, true);
+      console.log("Origin: ", origin);
+      if (!origin) return callback(null, true); // Allow Postman/Curl
+      const allowedOrigins = [
+        "http://localhost:3000",
+        "http://localhost:4173", // Vite
+        "https://atc-01150095409.vercel.app", // main production site
+      ];
+
+      // Allow Vercel domains for nows to get the preview site working
+      const vercelRegex = /^https:\/\/[\w.-]+\.vercel\.app$/;
+
+      if (allowedOrigins.includes(origin) || vercelRegex.test(origin)) {
+        console.log("CORS allowed for origin: ", origin);
+        return callback(null, true);
+      } else {
+        console.log("CORS not allowed for origin: ", origin);
+        return callback(new Error("Not allowed by CORS"));
+      }
     },
     credentials: true,
     optionsSuccessStatus: 200,
@@ -82,6 +96,7 @@ app.use("/api/v1", userSessionMiddleware, router);
 app.use("/api/v1/admin", adminSessionMiddleware, adminRouter);
 app.use(errorHandlerMiddleware);
 
+const httpServer = createServer(app);
 httpServer.listen(PORT, async () => {
   console.log(`Server is running on http://localhost:${PORT} `);
 

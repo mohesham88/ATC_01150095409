@@ -51,7 +51,7 @@ axiosInstance.interceptors.response.use(
       switch (error.response.status) {
         case 401:
           // Handle unauthorized - redirect to login
-          window.location.href = "/auth";
+          // window.location.href = "/auth";
           break;
         case 403:
           // Mainly returned from the server when trying to access admin panel without the correct permissions

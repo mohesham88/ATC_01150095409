@@ -45,7 +45,7 @@ MEvent is a full-stack simple web application designed to make event planning an
 | Database | MongoDB                                                  |
 | Hosting  | Vercel (Frontend), Microsoft Azure App Service (Backend) |
 
-⚙️ Project Structure
+## ⚙️ Project Structure
 
 ```bash
 mevent/
@@ -58,6 +58,12 @@ mevent/
 │
 └── README.md    # Main project overview
 ```
+
+
+## Admin account for testing the admin panel
+email: ```admin@gmail.com```
+
+password: ```12345678Aa```
 
 ➡️ For detailed setup and environment configuration, please refer to the individual `README.md` files located inside the `/frontend` and `/backend` folders.
 
